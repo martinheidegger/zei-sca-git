@@ -50,3 +50,15 @@ Then we take care of common node steps:
     publish it prematurely.
 2. Add `author`, `description` and `keyword` metadata to the package.json to
     be clear about our intent.
+3. Make sure that the `node_modules` folder is part of `.gitignore`
+
+    ```
+    $ echo "node_modules" >> .gitignore
+    ```
+
+Then finish our commit:
+
+```sh
+$ git add .; git commit -m "initial commit"
+```
+```
