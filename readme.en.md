@@ -43,3 +43,8 @@ $ mkdir zei-sca-git; cd zei-sca-git
 $ npm init -y
 $ git init
 ```
+
+Then we take care of common node steps:
+
+1. Add `"private": true` to the package.json to make sure we don't accidentally
+    publish it prematurely.
