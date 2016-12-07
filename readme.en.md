@@ -48,3 +48,5 @@ Then we take care of common node steps:
 
 1. Add `"private": true` to the package.json to make sure we don't accidentally
     publish it prematurely.
+2. Add `author`, `description` and `keyword` metadata to the package.json to
+    be clear about our intent.

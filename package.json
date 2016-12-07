@@ -1,13 +1,13 @@
 {
   "name": "zei-sca-git",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web service that fetches teams from github and provides the data as GraphQL API.",
   "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["zeit", "scaphold", "github"],
+  "author": "Martin Heidegger <martin.heidegger@gmail.com>",
   "license": "ISC"
 }
