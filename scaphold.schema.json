@@ -290,7 +290,30 @@
                     "isEditable": true,
                     "isDeletable": true,
                     "isExtendable": true,
-                    "permissions": []
+                    "permissions": [
+                        {
+                            "id": "UGVybWlzc2lvbjo1YmY3NDY4Yy1lN2FmLTQzMTktYjk3Yi1jNmJkZGQ5ZjdjMmY=",
+                            "scope": "EVERYONE",
+                            "userFields": [],
+                            "protectedFields": [],
+                            "roles": [],
+                            "create": false,
+                            "read": true,
+                            "update": false,
+                            "delete": false
+                        },
+                        {
+                            "id": "UGVybWlzc2lvbjpmZGZkODI2ZC02YTliLTRiYzQtOTBjNS1mMDcxZmQyODJiZGQ=",
+                            "scope": "AUTHENTICATED",
+                            "userFields": [],
+                            "protectedFields": [],
+                            "roles": [],
+                            "create": true,
+                            "read": true,
+                            "update": true,
+                            "delete": true
+                        }
+                    ]
                 },
                 {
                     "id": "VHlwZTo2MTM1ODcxZi1kMzMzLTQyNmItYTAxMi1mMjhkZWMxOWE4NDU=",
@@ -428,7 +451,30 @@
                     "isEditable": true,
                     "isDeletable": true,
                     "isExtendable": true,
-                    "permissions": []
+                    "permissions": [
+                        {
+                            "id": "UGVybWlzc2lvbjpkNTVhYjk0Ni01MmVjLTQxMzItYjk2Yy02NGMyMjhlNzEzYzc=",
+                            "scope": "EVERYONE",
+                            "userFields": [],
+                            "protectedFields": [],
+                            "roles": [],
+                            "create": false,
+                            "read": true,
+                            "update": false,
+                            "delete": false
+                        },
+                        {
+                            "id": "UGVybWlzc2lvbjowOGNlMDEzMy0zOGNkLTQ2NDEtOGZiOS01OTc3YjNkYmFhMmM=",
+                            "scope": "AUTHENTICATED",
+                            "userFields": [],
+                            "protectedFields": [],
+                            "roles": [],
+                            "create": true,
+                            "read": true,
+                            "update": true,
+                            "delete": true
+                        }
+                    ]
                 },
                 {
                     "id": "VHlwZTpjZjkyMmM4YS0xNmI0LTRkZDEtYWIxNy00MDNkY2NiY2FkM2I=",

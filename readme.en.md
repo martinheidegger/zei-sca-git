@@ -163,3 +163,14 @@ Now that we also have the data schema we can use it to store our teams. Scaphold
 Scaphold immediately creates an API explorer with all the documentation for us:
 [here](https://us-west-2.api.scaphold.io/graphql/zei-sca-git).
 
+### 🔒 Security
+
+By default all data in Scaphold is unprotected. You can add a setting to allow
+only admin users to modify data.
+
+<img alt="Screenshot: Scaphold Permissions Button" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="80">
+
+Limit the permissions for "Everyone" to "read"
+
+<img alt="Screenshot: Permissions Read only" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="200">
+
