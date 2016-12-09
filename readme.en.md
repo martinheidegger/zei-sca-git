@@ -490,3 +490,40 @@ module.exports = login => {
 
 This way, when the server is run with `/secret` it will sync all the teams
 from Github to scaphold.
+
+### 3.) Start with secrets
+
+We have to extract the `GITHUB_ORG` configuration constant and the `SECRET` constant
+same like we did with `GITHUB_TOKEN` to make sure that only people we know
+can update the database.
+
+```javascript
+const SECRET = '/' + process.env.SECRET
+if (!SECRET) {
+  throw new Error('Please specify the SECRET environment variable')
+}
+```
+
+After that we have 4 variables that we need to start our server:
+
+- `SECRET`
+- `GITHUB_ORG`
+- `GITHUB_TOKEN`
+- `SCAPHOLD_TOKEN`
+
+All we need to do now is to start `now` with those variables.
+
+```bash
+$ now -e SECRET=secret \
+      -e GITHUB_ORG=nodeshool \
+      -e GITHUB_TOKEN=ABCGithubIsSweetXYZ \
+      -e SCAPHOLD_TOKEN=ABCScapholdForTheWinXYZ
+```
+
+Finally the server is running and we can sync the data simply by running:
+
+```bash
+$ curl https:///
+```
+
+🤓 We did it! High Five! ✋🏽
