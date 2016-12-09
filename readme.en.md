@@ -1,10 +1,10 @@
-# Zei - Sca - Git
-[zeit/now](https://zeit.co/now) - [scaphold](https://scaphold.io) - [github](https://developer.github.com)
+# ⏱ Zei - 🏢 Sca - 😺 Git
+[zeit/now](https://zeit.co/now) - [scaphold](https://scaphold.io) -  [github](https://developer.github.com)
 
 Today we are trying to build a little service that makes use of modern, open
 technologies that should be easy to get started.
 
-## Concept
+## 💡 Concept
 
 ### Problem
 Todays problem that we try to solve is that Github doesn't show the public teams
