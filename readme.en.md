@@ -393,3 +393,33 @@ https://zei-sca-git-iirtkazzso.now.sh/secret
 You can immediately look at the source code here:
 
 https://zei-sca-git-iirtkazzso.now.sh/_src/?f=index.js
+
+## 🏁 Connect the parts
+
+### 1.) Get all data
+
+`./lib/loadTeams.js` does not load all the data of teams yet. So, lets
+change the API to return the full team object:
+
+_(lib/loadTeams)_
+```javascript
+query Organization ($login: String!) {
+  organization(login: $login) {
+    id
+    teams(first: 30) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          name
+          description
+          slug
+          id
+        }
+      }
+    }
+  }
+}
+```
