@@ -303,3 +303,20 @@ test('create, read, update and delete a team', t => {
 
 **Yeah! Now we can store data!**  🎉
 
+## 🚀 Setup a Server
+
+Now that we have storage and purpose we need to start using it! Before we do
+that though lets first move all our keys to environment variables 😅, if we
+keep them in the code it will be deployed to Zeit.
+
+### 🔑 Preparation: Environment variables
+
+We can easily use `process.env` to get the `GITHUB_TOKEN` and `SCAPHOLD_TOKEN`
+like this:
+
+```javascript
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+if (!GITHUB_TOKEN) {
+  throw new Error('Please specify the GITHUB_TOKEN environment variable')
+}
+```
