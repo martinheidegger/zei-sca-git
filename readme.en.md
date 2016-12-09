@@ -424,3 +424,47 @@ query Organization ($login: String!) {
 ```
 
 Now we actually get the team data with every response.
+
+### 2.) Write the data to the server
+
+When the server gets to the secret path it should start the sync process:
+
+```javascript
+const sync = require('./lib/sync.js')
+const GITHUB_ORG = 'nodeschool'
+// ...
+  if (req.url === SECRET && req.method === 'GET') {
+    sync(GITHUB_ORG).then(() => {
+      //..
+    }).catch((e) => {
+      res.write(500, {'Content-Type': 'text/plain'})
+      res.end(e.stack || e.toString())
+    })
+    return
+  }
+```
+
+Since we don't have the time to implement the whole system, lets just store
+the teams. To make it a little easier still, lets also use
+[bluebird](http://bluebirdjs.com/docs/getting-started.html).
+
+```bash
+$ npm i bluebird --save
+```
+
+_(lib/sync.js)_
+```javascript
+const { map } = require('bluebird')
+const loadTeams = require('./loadTeams.js')
+const { create } = require('./teamCRUD.js')
+
+module.exports = (login) =>
+  loadTeams(login).then((result) => {
+    var teams = result.data.organization.teams.edges
+    return map(teams, team => create(team).catch(e => null))
+  })
+```
+
+This way, when the server is run with `/secret` it will sync all the teams
+from Github to scaphold.
+
