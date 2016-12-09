@@ -366,3 +366,22 @@ To clean it up a little we should add a `start` script to the `package.json`:
 ```
 
 With this script we can start the same server using `npm start`.
+
+### 🏳 Launch it with `now`
+
+For `now` to be used we need to install it using:
+
+```bash
+$ npm install now -g
+```
+_(Note: some setups need to run this with `sudo`)_
+
+Then you can start the server simply using:
+
+```bash
+$ now
+```
+
+Since I deployed this server you can look it up immediately here:
+
+https://zei-sca-git-iirtkazzso.now.sh/
