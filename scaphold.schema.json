@@ -522,7 +522,7 @@
                     "interfaces": null,
                     "fields": [],
                     "values": [
-                        "PUBLIC"
+                        "VISIBLE"
                     ],
                     "isBridge": false,
                     "position": 1000,
