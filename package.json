@@ -5,9 +5,20 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap -- test/**"
   },
-  "keywords": ["zeit", "scaphold", "github"],
+  "keywords": [
+    "zeit",
+    "scaphold",
+    "github"
+  ],
   "author": "Martin Heidegger <martin.heidegger@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "graphql-fetch": "^1.0.0",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "tap": "^8.0.1"
+  }
 }

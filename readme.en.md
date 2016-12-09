@@ -61,3 +61,73 @@ Then finish our commit:
 ```sh
 $ git add .; git commit -m "initial commit"
 ```
+
+### Use the GraphQL Github API in Node
+
+Lets first install the [`graphql-fetch`](https://www.npmjs.com/package/graphql-fetch)
+package and add [`tap`](https://www.npmjs.com/package/tap) to test our progress.
+
+```sh
+$ npm install --save graphql-fetch isometric-fetch
+$ npm install --save-dev tap
+```
+
+_(`graphql-fetch` requires `isometric-fetch`)_
+
+The GraphQL specification for github is: https://api.github.com/graphql so we
+can prepare the fetch call like this:
+
+_(lib/loadTeams.js)_
+```js
+const fetch = require('graphql-fetch')('https://api.github.com/graphql')
+```
+
+We will need a [Github Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
+. As Placeholder let me use "ABCGithubIsSweetXYZ" in the examples.
+
+```js
+const GITHUB_TOKEN = 'ABCGithubIsSweetXYZ'
+```
+
+We can then use the documentation available [here](https://developer.github.com/early-access/graphql/explorer/)
+to fetch an organization ID for a `login`:
+
+```js
+module.exports = (login) =>
+  fetch(`
+    query {
+      organization(login: "${login}") {
+        id
+      }
+    }
+  `, null, {
+    headers: new Headers({
+      Authorization: `bearer ${GITHUB_TOKEN}`
+    })
+  })
+```
+
+and in the tests we simply check if the id is correct:
+
+_(../test/loadTeams.js)_
+```js
+const { test } = require('tap')
+const loadTeams = require('../lib/loadTeams.js')
+
+test('get organization id', t =>
+  loadTeams('nodeschool').then(result => {
+    t.equals(result.data.organization.id, 'MDEyOk9yZ2FuaXphdGlvbjU0Mzc1ODc=')
+  })
+)
+```
+
+Now that we have the code and the tests we just need to add the scripts
+to the `package.json`.
+
+```json
+"scripts": {
+  "test": "tap -- test/**"
+}
+```
+
+Then we can run `$ npm test` and we it should be green.
