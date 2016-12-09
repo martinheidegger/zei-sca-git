@@ -529,3 +529,15 @@ $ curl https://zei-sca-git-yhyfypszsj.now.sh/secret
 🤓 We did it! High Five! ✋🏽
 
 You can exlore the public API [here](https://us-west-2.api.scaphold.io/graphql/zei-sca-git?query=query%20%7B%0A%20%20viewer%20%7B%0A%20%20%20%20allTeams%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20slug%0A%20%20%20%20%20%20%20%20%20%20privacy%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)
+
+## 🤔 Summary
+
+GraphQL in as a method is bound to make our lives easier. The transportable
+schema definitions and new GraphQL services like Scaphold work surprisingly well.
+Combined with a Zeit microservice architecture we should be able to create
+quickly very useful open database while being much less dependent on the whims
+of Proprietary technologies. 🤑
+
+All this code is hosted on [Github](https://github.com/martinheidegger/zei-sca-git)
+and, for NodeSchool, it would be super awesome if we could turn this into a
+full-fletched syncing server. PR welcome!
