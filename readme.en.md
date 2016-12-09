@@ -423,3 +423,5 @@ query Organization ($login: String!) {
   }
 }
 ```
+
+Now we actually get the team data with every response.
