@@ -95,12 +95,12 @@ to fetch an organization ID for a `login`:
 ```js
 module.exports = (login) =>
   fetch(`
-    query {
-      organization(login: "${login}") {
+    query Organization ($login: String!) {
+      organization(login: $login) {
         id
       }
     }
-  `, null, {
+  `, { login }, {
     headers: new Headers({
       Authorization: `bearer ${GITHUB_TOKEN}`
     })
