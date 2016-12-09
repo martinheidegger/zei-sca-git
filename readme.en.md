@@ -320,3 +320,11 @@ if (!GITHUB_TOKEN) {
   throw new Error('Please specify the GITHUB_TOKEN environment variable')
 }
 ```
+
+in our tests we can then run:
+
+```bash
+$ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
+      SCAPHOLD_TOKEN=ABCScapholdForTheWinXYZ \
+      npm test
+```
