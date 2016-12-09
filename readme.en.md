@@ -131,3 +131,34 @@ to the `package.json`.
 ```
 
 Then we can run `$ npm test` and we it should be green.
+
+## 🛠 Prepare the Database
+Since we use GraphQL to access Github, for this experiment we use GraphQL to
+store our data as well! Recently GraphQL as a service databases services appeared.
+Scaphold is our choice for this experiment. Let's [create an account]()!
+
+<img alt="Screenshot: Sign Up to Scaphold" src="https://i.gyazo.com/ae41d9f25669b1069e281153e26a3e2b.png" width="200">
+
+Once you created an account you can create an application:
+
+<img alt="Screenshot: Create an App" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="370">
+
+<img alt="Screenshot: App Details" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="380">
+
+Now that we have created the app we can specify the Types we want to
+store. This is a little bit like a MySQL table specification:
+
+<img alt="Screenshot: Add Type Button in Scaphold interface" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="200">
+
+Define a scheme like in [`./scaphold.schema`](./scaphold.schema)
+_([`./scaphold.schema.json`](./scaphold.schema.json) is an export of my schema)_.
+
+Now that we also have the data schema we can use it to store our teams. Scaphold immediately offers a link for it:
+
+<img alt="Screenshot: API link in Scaphold" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="260">
+
+**Now we have a database!** 🎉
+
+Scaphold immediately creates an API explorer with all the documentation for us:
+[here](https://us-west-2.api.scaphold.io/graphql/zei-sca-git).
+

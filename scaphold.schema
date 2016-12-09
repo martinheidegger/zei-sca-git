@@ -1,0 +1,36 @@
+interface RepositoryOwner {
+  login: String!
+  name: String!
+  websiteURL: String
+  avatarUrl: String
+}
+
+type GithubUser {
+  id: ID!
+  bio: String
+  login: String!
+  modifiedAt: DateTime!
+  name: String!
+  location: String
+  websiteURL: String
+  isBountyHunter: Boolean!
+  createdAt: DateTime!
+  company: String
+  avatarUrl: String
+  teams: GithubUserTeamsConnection # Connection is a special type in Scaphold
+}
+
+type Team {
+  id: ID!
+  slug: String!
+  name: String!
+  privacy: TeamPrivacy!
+  createdAt: DateTime!
+  modifiedAt: DateTime!
+  teams: GithubUserTeamsConnection # Connection is a special type in Scaphold
+}
+
+enum TeamPrivacy {
+  # SECRET is not necessary, as those won't be stored here
+  PUBLIC
+}
