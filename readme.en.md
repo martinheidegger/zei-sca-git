@@ -328,3 +328,42 @@ $ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
       SCAPHOLD_TOKEN=ABCScapholdForTheWinXYZ \
       npm test
 ```
+
+### 🏴 Setup a simple Server
+
+We do still need a little server for the sync process.
+
+_(index.js)_
+```javascript
+const { createServer } = require('http')
+const SECRET = '/secret'
+const server = createServer((req, res) => {
+  if (req.url === SECRET && req.method === 'GET') {
+    res.writeHead(200, {'Content-Type': 'text/plain'})
+    res.end('you found me!')
+    return
+  }
+  res.writeHead(404, {'Content-Type': 'text/plain'})
+  res.end('not found')
+})
+server.listen( () => {
+  const address = server.address()
+  const host = address.address === '::' ? 'localhost' : address.address
+  console.log(`Server started on http://${host}:${address.port}`)
+})
+```
+
+With `node index.js` we can start the server and it will show a `404` error message
+for all pages except `/secret`.
+
+To clean it up a little we should add a `start` script to the `package.json`:
+
+```json
+"scripts": {
+  "test": "tap -- test/**",
+  "start": "node index.js"
+}
+```
+
+With this script we can start the same server using `npm start`.
+

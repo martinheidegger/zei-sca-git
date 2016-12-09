@@ -5,7 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "tap -- test/**"
+    "test": "tap -- test/**",
+    "start": "node index.js"
   },
   "keywords": [
     "zeit",
