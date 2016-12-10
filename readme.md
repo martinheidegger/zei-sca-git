@@ -418,3 +418,69 @@ query Organization ($login: String!) {
 ```
 
 それでリクエストごとに必要なチームデータいただけるようになります。
+
+### 2.) データをサーバに保存しましょう
+
+`/secret` のパスにアクセスするとサーバは Sync を移動したいです。
+
+```javascript
+const sync = require('./lib/sync.js')
+const GITHUB_ORG = 'nodeschool'
+// ...
+  if (req.url === SECRET && req.method === 'GET') {
+    sync(GITHUB_ORG).then(() => {
+      //..
+    }).catch((e) => {
+      res.write(500, {'Content-Type': 'text/plain'})
+      res.end(e.stack || e.toString())
+    })
+    return
+  }
+```
+
+全てのシステムを書くためには時間が足りていないから。ただチームを保存するようにしましょう。
+
+さらに簡単になるように　[bluebird](http://bluebirdjs.com/docs/getting-started.html)
+と言うパッケージを使いましょう。
+
+```bash
+$ npm i bluebird --save
+```
+
+_(lib/sync.js)_
+```javascript
+const { map } = require('bluebird')
+const loadTeams = require('./loadTeams.js')
+const { create } = require('./teamCRUD.js')
+const running = {}
+
+module.exports = login => {
+  if (running[login]) {
+    // 今のプロゼスを使います。 DDOS 防止
+    return running[login]
+  }
+  return running[login] = loadTeams(login)
+    .then((result) => {
+      var teams = result
+        .data.organization.teams.edges
+        // ただ `node` が必要です
+        .map(edge => edge.node)
+        // 見えるようなチームのみ
+        .filter(team => team.privacy !== 'SECRET')
+
+      return map(
+        teams,
+        // エラーをむしにします
+        team => create(team).catch(e => null),
+        // Scaphold への DDOS 防止
+        { concurrency: 5 }
+      )
+    })
+    .then(result => {
+      delete running[login]
+      return result
+    })
+}
+```
+
+このように `/secret` をアクセスすると全てのチームを Github から Scaphold へ Sync しています。
