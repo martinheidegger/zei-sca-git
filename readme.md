@@ -298,3 +298,20 @@ test('create, read, update and delete a team', t => {
 ```
 
 **やった！データを保存できるようになった！**  🎉
+
+## 🚀 サーバーのセットアップ
+
+ストレージや Github の API はできているからそろそろ使った方がいいですよね。ただその前に全ての変数は環境変数に書き換えた方がいいです。
+😅 そうしないと Zeit へデプロイすることで誰でもキーをアクセスできるようになります。
+
+### 🔑 準備：環境変数
+
+ただの `process.env` の API で `GITHUB_TOKEN` や `SCAPHOLD_TOKEN` をこのように
+環境変数に書き換えます。
+
+```javascript
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+if (!GITHUB_TOKEN) {
+  throw new Error('Please specify the GITHUB_TOKEN environment variable')
+}
+```
