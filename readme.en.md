@@ -532,7 +532,7 @@ You can exlore the public API [here](https://us-west-2.api.scaphold.io/graphql/z
 
 ## 🤔 Summary
 
-GraphQL in as a method is bound to make our lives easier. The transportable
+GraphQL as a method is bound to make our lives easier. The transportable
 schema definitions and new GraphQL services like Scaphold work surprisingly well.
 Combined with a Zeit microservice architecture we should be able to create
 quickly very useful open database while being much less dependent on the whims
