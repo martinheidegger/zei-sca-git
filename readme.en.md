@@ -470,8 +470,8 @@ module.exports = login => {
         .data.organization.teams.edges
         // We only need the node
         .map(edge => edge.node)
-        // Only public teams
-        .filter(team => team.privacy !== 'VISIBLE')
+        // Hide secret teams
+        .filter(team => team.privacy !== 'SECRET')
 
       return map(
         teams,
