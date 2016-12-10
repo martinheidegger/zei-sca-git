@@ -414,9 +414,8 @@ query Organization ($login: String!) {
       edges {
         node {
           name
-          description
+          privacy
           slug
-          id
         }
       }
     }
