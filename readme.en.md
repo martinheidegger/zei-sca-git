@@ -385,3 +385,11 @@ $ now
 Since I deployed this server you can look it up immediately here:
 
 https://zei-sca-git-iirtkazzso.now.sh/
+
+It will output `not found`. Accessing: `/secret` will show `you found me!`.
+
+https://zei-sca-git-iirtkazzso.now.sh/secret
+
+You can immediately look at the source code here:
+
+https://zei-sca-git-iirtkazzso.now.sh/_src/?f=index.js
