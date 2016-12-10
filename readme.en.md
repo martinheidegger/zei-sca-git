@@ -39,7 +39,7 @@ To access the API through node, first init the project `zei-sca-git`:
 _(Note: the installation of Node & Git is assumed)_
 
 ```sh
-$ echo zei-sca-git | (mkdir $1; cd $1)
+$ mkdir zei-sca-git; cd zei-sca-git
 $ npm init -y
 $ git init
 ```
