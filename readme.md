@@ -26,3 +26,23 @@ Zeit のデプロイシステムはめっちゃ簡単なので絶対便利にな
 [GraphQL](http://graphql.org/) の API を用意したいです。もしかしたさらにフレキシブルです。もしかしたもっと早いです。
 
 私たちの運がいいです。[scaphold](https://scaphold.io) というサービスは GraphQL のデータベースを少ないデータのために無料に出しています。楽しみです！
+
+## Github API
+以前に Github の API 使っている方は今が古い話になると思うでしょうか？違っています！最近は
+**Github の[新しい "early-access" プログラム](https://developer.github.com/early-access/)では
+[GraphQL API](https://developer.github.com/early-access/graphql/) を公開しました！**
+
+Node でその API アクセスをためにまずプロジェクトの準備が必要となります。第一は `zei-sca-git`
+のプロジェクトを init にしましょう：
+_(メモ: この記事は Git と Node 7 があると仮定しています。)_
+
+```sh
+$ mkdir zei-sca-git; cd zei-sca-git
+$ npm init -y
+$ git init
+```
+
+そしてはよくある Node の設定をしましょう。
+
+1. `package.json` に `"private": true` のフラッグをつけましょう、そうすると失敗で project
+    を npm にプッシュできません。
