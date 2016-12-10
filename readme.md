@@ -521,3 +521,14 @@ $ curl https://zei-sca-git-yhyfypszsj.now.sh/secret
 🤓 イェー! できました！ ✋🏽
 
 公開 API を拝見するためは [こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git?query=query%20%7B%0A%20%20viewer%20%7B%0A%20%20%20%20allTeams%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20slug%0A%20%20%20%20%20%20%20%20%20%20privacy%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)。
+
+## 🤔 まとめ
+
+GraphQL のおかげでは開発の未来がちょっと明るくなりそうです。
+Schema のスペックが簡単にアクセスできるようになっているのが大事だし Scaphold
+のようなサービスは意外とうまくできているからです。Zeit のような Microservice Architecture
+と繋いで使うのが早くて簡単オーペンにアクセスできるようになると思うし独自の Technology
+にトラストしなくてもいいかも。🤑
+
+これの全てのコードは [Github](https://github.com/martinheidegger/zei-sca-git) にホストしてあります。とくに
+NodeSchool のためにその Repository へのちゃんとのサービスになるの PR があったらいいなと思います。
