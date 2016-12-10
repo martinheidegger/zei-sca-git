@@ -48,3 +48,14 @@ $ git init
     を npm にプッシュできません。
 2. `author`、 `description` や `keyword` のメタデータを `package.json`
     に追加しましょう。目的がちゃんとわかるように。
+3. そして `node_modules` を `.gitignore` に追加しましょう。
+
+    ```
+    $ echo "node_modules" >> .gitignore
+    ```
+
+全てできてから初めてのコミットができる：
+
+```sh
+$ git add .; git commit -m "初めてのコミット"
+```
