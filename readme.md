@@ -361,3 +361,30 @@ server.listen( () => {
 ```
 
 そうするとただの `npm start` でサーバーを立ち上がるようになりました。
+
+### 🏳 `now` で起動
+
+`now` を使うためにまずは `now` をインストールしないといけません：
+
+```bash
+$ npm install now -g
+```
+_(メモ；設定に夜 `sudo` で移動しないといけません)_
+
+インストールしてからはサーバを立ち上がるの非常に簡単です：
+
+```bash
+$ now
+```
+
+これをかくときにサーバをデプロイしましたのでここみにきてください：
+
+https://zei-sca-git-iirtkazzso.now.sh/
+
+`not found` になりました。`/secret` をアクセスすると `you found me!` が出てきます。
+
+https://zei-sca-git-iirtkazzso.now.sh/secret
+
+ソースコードもすでに読められるようになりました：
+
+https://zei-sca-git-iirtkazzso.now.sh/_src/?f=index.js
