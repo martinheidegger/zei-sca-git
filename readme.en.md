@@ -61,4 +61,3 @@ Then finish our commit:
 ```sh
 $ git add .; git commit -m "initial commit"
 ```
-```
