@@ -46,3 +46,5 @@ $ git init
 
 1. `package.json` に `"private": true` のフラッグをつけましょう、そうすると失敗で project
     を npm にプッシュできません。
+2. `author`、 `description` や `keyword` のメタデータを `package.json`
+    に追加しましょう。目的がちゃんとわかるように。
