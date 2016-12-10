@@ -484,3 +484,40 @@ module.exports = login => {
 ```
 
 このように `/secret` をアクセスすると全てのチームを Github から Scaphold へ Sync しています。
+
+### 3.) 秘密で起動
+
+まずは残っている `GITHUB_ORG` と `SECRET` は `GITHUB_TOKEN` と同じように環境変数で設定でき流ようにしよう。
+
+```javascript
+const SECRET = '/' + process.env.SECRET
+if (!SECRET) {
+  throw new Error('Please specify the SECRET environment variable')
+}
+```
+
+その後は 4つの変数がサーバーのスタートのために必要になりました：
+
+- `SECRET`
+- `GITHUB_ORG`
+- `GITHUB_TOKEN`
+- `SCAPHOLD_TOKEN`
+
+その環境変数は `now` のスタートに追加するだけです
+
+```bash
+$ now -e SECRET=secret \
+      -e GITHUB_ORG=nodeshool \
+      -e GITHUB_TOKEN=ABCGithubIsSweetXYZ \
+      -e SCAPHOLD_TOKEN=ABCScapholdForTheWinXYZ
+```
+
+最終的にサーバーが動いているかどうかが簡単確認できます：
+
+```bash
+$ curl https://zei-sca-git-yhyfypszsj.now.sh/secret
+```
+
+🤓 イェー! できました！ ✋🏽
+
+公開 API を拝見するためは [こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git?query=query%20%7B%0A%20%20viewer%20%7B%0A%20%20%20%20allTeams%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20slug%0A%20%20%20%20%20%20%20%20%20%20privacy%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)。
