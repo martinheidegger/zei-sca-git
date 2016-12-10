@@ -59,3 +59,73 @@ $ git init
 ```sh
 $ git add .; git commit -m "初めてのコミット"
 ```
+
+### Github の GraphQL API の使い方
+
+まずは便利な [`graphql-fetch`](https://www.npmjs.com/package/graphql-fetch) パッケージと進捗をテストするために
+[`tap`](https://www.npmjs.com/package/tap) パッケージをインストールしましょう。
+
+```sh
+$ npm install --save graphql-fetch isometric-fetch
+$ npm install --save-dev tap
+```
+
+_(`graphql-fetch` のために `isometric-fetch` が必須です)_
+
+Github の GraphQL スペックはこちらです： https://api.github.com/graphql
+そのドキュメントによると以下ようにに API データをローろできます。
+
+_(lib/loadTeams.js)_
+```js
+const fetch = require('graphql-fetch')('https://api.github.com/graphql')
+```
+
+アクセスのためにに [Github Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
+が必要となります。コンゼプトプレースホルダのためにこれからは "ABCGithubIsSweetXYZ" を使います。
+
+```js
+const GITHUB_TOKEN = 'ABCGithubIsSweetXYZ'
+```
+
+スペックの上に便利なドキュメントがあります。[こちらに](https://developer.github.com/early-access/graphql/explorer/)
+`login` の Organization の ID をロードのためにこのようになるはずです:
+
+```js
+module.exports = (login) =>
+  fetch(`
+    query Organization ($login: String!) {
+      organization(login: $login) {
+        id
+      }
+    }
+  `, { login }, {
+    headers: new Headers({
+      Authorization: `bearer ${GITHUB_TOKEN}`
+    })
+  })
+```
+
+そのためのテストは簡単かけます。
+
+_(../test/loadTeams.js)_
+```js
+const { test } = require('tap')
+const loadTeams = require('../lib/loadTeams.js')
+
+test('organization id をゲッツ', t =>
+  loadTeams('nodeschool').then(result => {
+    t.equals(result.data.organization.id, 'MDEyOk9yZ2FuaXphdGlvbjU0Mzc1ODc=')
+  })
+)
+```
+
+コードは書いてありますがスクリプトの設定はまだです。このように `package.json`
+に追加してください。
+
+```json
+"scripts": {
+  "test": "tap -- test/**"
+}
+```
+
+これで今からは `$ npm test` でテストを動かすことができます。グリーンなはずです。
