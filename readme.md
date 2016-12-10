@@ -129,3 +129,34 @@ test('organization id をゲッツ', t =>
 ```
 
 これで今からは `$ npm test` でテストを動かすことができます。グリーンなはずです。
+
+## 🛠 データベースの準備
+GraphQL で Github のデータをアクセスしていますから GraphQL なでものために使いましょう！最近からは
+GraphQL-as-as-Service のデータベースいくつかが出てきました。この実験のためにに Scaphold
+は便利そうですのでアカウントを作りましょう Let's [create an account](https://scaphold.io/)!
+
+_(ノート： `Scaphold` の発音は `Scaffold` と同じです)_
+
+<img alt="スクリーンショット： Scaphold のサインアップフォーム" src="https://i.gyazo.com/ae41d9f25669b1069e281153e26a3e2b.png" width="200">
+
+一応アカウントがあったらアプリが作られます。
+
+<img alt="スクリーンショット： アップのフォーム" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="370">
+
+<img alt="スクリーンショット： アップの情報" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="380">
+
+アップりが作ってあるから必要な Type を設定できます。少しだけ MySQL のテブル設定に似ています：
+
+<img alt="スクリーンショット： Scaphold の "Add Type" のボタン" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="200">
+
+このような Schema を設定してください [`./scaphold.schema`](./scaphold.schema)
+_([`./scaphold.schema.json`](./scaphold.schema.json) は私の Schema のエキスポートしたファイルです)_.
+
+このデータ Schema でチームのデータを保存できるようになりました。アップを作ってからは Scaphold
+が API を用意してあります：
+
+<img alt="スクリーンショット： Scaphold の "API link" ディスプレイ" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="260">
+
+**データベースをゲッツ!** 🎉
+
+Scaphold は API だけではなくて API エクスプローラも用意しています。アクセスしたいなら[こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git)。
