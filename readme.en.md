@@ -471,7 +471,7 @@ module.exports = login => {
         // We only need the node
         .map(edge => edge.node)
         // Only public teams
-        .filter(team => team.privacy !== 'PUBLIC')
+        .filter(team => team.privacy !== 'VISIBLE')
 
       return map(
         teams,
@@ -490,4 +490,3 @@ module.exports = login => {
 
 This way, when the server is run with `/secret` it will sync all the teams
 from Github to scaphold.
-
