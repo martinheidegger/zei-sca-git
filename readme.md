@@ -1,40 +1,42 @@
 # ⏱ Zei - 🏢 Sca - 😺 Git
 [zeit/now](https://zeit.co/now) - [scaphold](https://scaphold.io) -  [github](https://developer.github.com)
 
-今日は入りやすいモダーンやオープンな技術を利用するちっちゃなさサービスを書きましょう！
+簡単に使えるモダンでオープンな技術を使って小さなサービスを作る方法。
 
 ## 💡 コンゼプト
 
 ### 問題
-このサービスで対応したいのは Github の問題です。実は Github の Organization は "public"なチームがありますが、
-Organization 以外のかたはそのチームを見えません。
+このサービスで解決したいものは Github における問題です。実は Github の Organization は
+"public" なチームがありますが、Organization のメンバー以外からはそのチームを見ることができません。
 
-例えば、ログインしていない場合または NodeSchool のメンバーじゃない場合では
-[NodeSchool のページ](https://github.com/nodeschool)にはチームタブがありません。その
-タブの内容は誰でも見えるようにしたいです。
+例えば、ログインしていない場合、あるいは NodeSchool のメンバーではない場合、
+[NodeSchool のページ](https://github.com/nodeschool)にはチームのタブがありません。
+そのタブの内容を誰にでも見れるようにしてみましょう。
 
 ### 解決
-対応するためにちっちゃな Node.js サーバーを書きましょう。そのサーバーは Github
-からのチームを読んでデータベースに保蔵んして、誰でもアクセスできるようにしています。
+この問題を解決するために、小さなサーバーを Node.js 書きます。そのサーバーは Github
+からチームの一覧を読み込み、データベースに保存し、誰からでもアクセスできるようにします。
 
 ### CPU & Memory
-[Zeit/now](https://zeit.co/now) は無料の CPU をオーペンソースのプロジェクトんにオファーしています。その上は
-Zeit のデプロイシステムはめっちゃ簡単なので絶対便利になるでしょう。
+[Zeit/now](https://zeit.co/now) は無料の CPU をオーペンソースのプロジェクトに提供しています。
+Zeit のデプロイシステムは非常に簡単なので、このようなプロジェクトには最適です。
 
 ### ストレージ
-今までよくはやっている REST API の変われいにもうちょっと格好よく開発したいです。そのためは
-[GraphQL](http://graphql.org/) の API を用意したいです。もしかしたさらにフレキシブルです。もしかしたもっと早いです。
+REST API が無難なのは言うまでもありませんが、もう少し格好よく開発をしてみましょう。皆さんも御存知の通り、
+[GraphQL](http://graphql.org/) の API を試してみましょう。もしかしたら、REST API　よりも
+さらにフレキシブルです。そして、速度も早いかもしれません。
 
-私たちの運がいいです。[scaphold](https://scaphold.io) というサービスは GraphQL のデータベースを少ないデータのために無料に出しています。楽しみです！
+幸運なことに、[scaphold](https://scaphold.io) というサービスは GraphQL のデータベースを
+少ないデータのために無料で提供しています。使うほかありませんね！
 
 ## 😺 Github API
-以前に Github の API 使っている方は今が古い話になると思うでしょうか？違っています！最近は
-**Github の[新しい "early-access" プログラム](https://developer.github.com/early-access/)では
+昔から Github の API 使っている方は、REST API を使わなきゃいけないと思ったかもしれません。
+それは違います！最近、**Github の[新しい "early-access" プログラム](https://developer.github.com/early-access/) が
 [GraphQL API](https://developer.github.com/early-access/graphql/) を公開しました！**
 
-Node でその API アクセスをためにまずプロジェクトの準備が必要となります。第一は `zei-sca-git`
-のプロジェクトを init にしましょう：
-_(メモ: この記事は Git と Node 7 があると仮定しています。)_
+Node でその API アクセスを試すために、まずプロジェクトの準備をしましょう。第一は `zei-sca-git`
+のプロジェクトを構築してみましょう：
+_(メモ： この記事は Git と Node 7 がインストールされている前提でチュートリアルを進めます。)_
 
 ```sh
 $ mkdir zei-sca-git; cd zei-sca-git
@@ -42,19 +44,19 @@ $ npm init -y
 $ git init
 ```
 
-そしてはよくある Node の設定をしましょう。
+そしでは、よくある Node の設定をしましょう。
 
-1. `package.json` に `"private": true` のフラッグをつけましょう、そうすると失敗で project
-    を npm にプッシュできません。
+1. `package.json` に `"private": true` のフラグをつけましょう。そうすると、事故で project
+    が npm に公開されることがなくなります。
 2. `author`、 `description` や `keyword` のメタデータを `package.json`
-    に追加しましょう。目的がちゃんとわかるように。
+    に追加しましょう。プロジェクトの詳細が明確になります。
 3. そして `node_modules` を `.gitignore` に追加しましょう。
 
     ```
     $ echo "node_modules" >> .gitignore
     ```
 
-全てできてから初めてのコミットができる：
+全てが完了したら、初めてのコミットをしましょう：
 
 ```sh
 $ git add .; git commit -m "初めてのコミット"
@@ -62,7 +64,7 @@ $ git add .; git commit -m "初めてのコミット"
 
 ### Github の GraphQL API の使い方
 
-まずは便利な [`graphql-fetch`](https://www.npmjs.com/package/graphql-fetch) パッケージと進捗をテストするために
+便利な [`graphql-fetch`](https://www.npmjs.com/package/graphql-fetch) パッケージと、サービスの動作をテストするために
 [`tap`](https://www.npmjs.com/package/tap) パッケージをインストールしましょう。
 
 ```sh
@@ -72,23 +74,23 @@ $ npm install --save-dev tap
 
 _(`graphql-fetch` のために `isometric-fetch` が必須です)_
 
-Github の GraphQL スペックはこちらです： https://api.github.com/graphql
-そのドキュメントによると以下ようにに API データをローろできます。
+Github の GraphQL 仕様はこちらです： https://api.github.com/graphql
+このドキュメントによると、以下のやり方で API 経由でデータを取得できます。
 
 _(lib/loadTeams.js)_
 ```js
 const fetch = require('graphql-fetch')('https://api.github.com/graphql')
 ```
 
-アクセスのためにに [Github Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
-が必要となります。コンゼプトプレースホルダのためにこれからは "ABCGithubIsSweetXYZ" を使います。
+アクセスのためには [Github Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) が必要となります。
+コード例では "ABCGithubIsSweetXYZ" という文字列を使ってみますが、あなたが取得したトークンを実際のコードでは利用してください。
 
 ```js
 const GITHUB_TOKEN = 'ABCGithubIsSweetXYZ'
 ```
 
-スペックの上に便利なドキュメントがあります。[こちらに](https://developer.github.com/early-access/graphql/explorer/)
-`login` の Organization の ID をロードのためにこのようになるはずです:
+仕様のドキュメントに、[explorer](https://developer.github.com/early-access/graphql/explorer/) と呼ばれる便利なツールがあります。
+`login` の Organization の ID をロードするために、このようなコードを書いてみましょう：
 
 ```js
 module.exports = (login) =>
@@ -105,7 +107,7 @@ module.exports = (login) =>
   })
 ```
 
-そのためのテストは簡単かけます。
+もちろん、テストもお忘れなく。
 
 _(../test/loadTeams.js)_
 ```js
@@ -119,8 +121,8 @@ test('organization id をゲッツ', t =>
 )
 ```
 
-コードは書いてありますがスクリプトの設定はまだです。このように `package.json`
-に追加してください。
+コードの実装は完了です。次に実行するためのスクリプトを設定しましょう。`package.json`
+に "script" フィールドと、そのスクリプトを追加してください。
 
 ```json
 "scripts": {
@@ -128,60 +130,62 @@ test('organization id をゲッツ', t =>
 }
 ```
 
-これで今からは `$ npm test` でテストを動かすことができます。グリーンなはずです。
+これを追加することで、これからは `$ npm test` でテストを動かすことができます。
+試しに実行してみてください、問題なく動作するはずです。
 
 ## 🛠 データベースの準備
-GraphQL で Github のデータをアクセスしていますから GraphQL なでものために使いましょう！最近からは
-GraphQL-as-as-Service のデータベースいくつかが出てきました。この実験のためにに Scaphold
-は便利そうですのでアカウントを作りましょう Let's [create an account](https://scaphold.io/)!
+GraphQL で Github のデータをアクセスするので、データの保存にも GraphQL を活用しましょう！最近では、
+GraphQL-as-as-Service のサービスもいくつかあります。今回の実験のために、Scaphold
+は最適そうです。まずはアカウントを作りましょう。 Let's [create an account](https://scaphold.io/)!
 
 _(ノート： `Scaphold` の発音は `Scaffold` と同じです)_
 
-<img alt="スクリーンショット： Scaphold のサインアップフォーム" src="https://i.gyazo.com/ae41d9f25669b1069e281153e26a3e2b.png" width="200">
+<img alt="スクリーンショット： Scaphold のサインアップのフォーム" src="https://i.gyazo.com/ae41d9f25669b1069e281153e26a3e2b.png" width="200">
 
-一応アカウントがあったらアプリが作られます。
+アカウントを作成すると、アプリを作ることができるようになります。
 
-<img alt="スクリーンショット： アップのフォーム" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="370">
+<img alt="スクリーンショット： アプリのフォーム" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="370">
 
-<img alt="スクリーンショット： アップの情報" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="380">
+<img alt="スクリーンショット： アプリの情報" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="380">
 
-アップりが作ってあるから必要な Type を設定できます。少しだけ MySQL のテブル設定に似ています：
+アプリを作成したら、その Type を設定しましょう。少しだけ MySQL のテーブルの設定に似ています：
 
 <img alt="スクリーンショット： Scaphold の "Add Type" のボタン" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="200">
 
 このような Schema を設定してください [`./scaphold.schema`](./scaphold.schema)
 _([`./scaphold.schema.json`](./scaphold.schema.json) は私の Schema のエキスポートしたファイルです)_.
 
-このデータ Schema でチームのデータを保存できるようになりました。アップを作ってからは Scaphold
-が API を用意してあります：
+このデータ Schema で、チームのデータを保存できるようになりました。アプリの作成が完了したら、
+Scapholdが API を用意してくれます：
 
 <img alt="スクリーンショット： Scaphold の "API link" ディスプレイ" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="260">
 
 **データベースをゲッツ!** 🎉
 
-Scaphold は API だけではなくて API エクスプローラも用意しています。拝見したいなら[こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git)。
+Scaphold は API だけではなく、API エクスプローラも用意しています。詳細は[こちら](https://us-west-2.api.scaphold.io/graphql/zei-sca-git)。
 
 ### 🔒 セキュリティ
 
-Scaphold のデフォルトでは誰でもが全てのデータ変化できます。設定で管理者以外の変化制限をつける
-ことができます。
+Scaphold のデフォルトでは、誰でも全てのデータを変更できます。設定で管理者以外の変更制限をつける
+ことが可能です。
 
 <img alt="スクリーンショット： Scaphold の許可ボタン" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="80">
 
-"Everyone" が "read" だけの制限をつけましょう
+"Everyone" が "read only" になるように制限を追加しましょう。
 
 <img alt="スクリーンショット： Read のみの許可" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="200">
 
 ### 💾 データを保存しましょう
 
-GraphQL ではデータをアクセスするのために使うではなくてデーてを変化することもできます！ GraphQL
-ではその変化が ["Mutation"](http://graphql.org/learn/queries/#mutations) と言われています。
+GraphQL は、データをアクセスするのためだけに使うではなく、データを更新するためにも使えます！ GraphQL
+ではその変更のことを ["Mutation"](http://graphql.org/learn/queries/#mutations) と呼びます。
 
-テストのために何でも変化できるようになりたいです。そのために "Admin Token" が必要となります。
+テストを書くのに、データを自由に変更できるようにしましょう。そのためには、"Admin Token" が必要となります。
 
 <img alt="スクリーンショット： 設定の Admin Token のセクション" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="500">
 
-コンゼプトプレースホルダとしてはこれから "ABCScapholdForTheWinXYZ" を使います。
+実装例として今回は "ABCScapholdForTheWinXYZ" を使いますが、
+実際のコードではあなたが取得したトークンを利用してください。
 では、[GraphQL mutation API](https://scaphold.io/docs/#mutations) を使いましょう！
 
 _(lib/teamCRUD.js)_
@@ -249,7 +253,7 @@ exports.del = id =>
 
 ```
 
-上の４つの関数ではフル CRUD APIをゲットしました。それをもちろんテストできます！
+上の４つの関数を以て、CRUD な API の実装が完了しました。もちろん、テストも書けます！
 
 _(test/teamCRUD.js)_
 ```javascript
@@ -301,12 +305,13 @@ test('create, read, update and delete a team', t => {
 
 ## 🚀 サーバーのセットアップ
 
-ストレージや Github の API はできているからそろそろ使った方がいいですよね。ただその前に全ての変数は環境変数に書き換えた方がいいです。
-😅 そうしないと Zeit へデプロイすることで誰でもキーをアクセスできるようになります。
+ストレージや Github の API を完了したので、そろそろ実際に使ってみましょう。
+ただ、その前に全ての変数を環境変数に変更しましょう😅
+そうしないと Zeit へデプロイした後に、誰でもトークンなどの情報にアクセスすることが可能となってしまいます。。
 
 ### 🔑 準備：環境変数
 
-ただの `process.env` の API で `GITHUB_TOKEN` や `SCAPHOLD_TOKEN` をこのように
+Node の `process.env` を使い、`GITHUB_TOKEN` や `SCAPHOLD_TOKEN` をこのように
 環境変数に書き換えます。
 
 ```javascript
@@ -316,7 +321,7 @@ if (!GITHUB_TOKEN) {
 }
 ```
 
-それからはこのようにテストを移動するようになりました：
+そして、テストをこのように実行するように変更しましょう：
 
 ```bash
 $ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
@@ -326,7 +331,7 @@ $ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
 
 ### 🏴 軽いサーバ
 
-Sync のためにサーバをほとんど悪れてしまいました。
+同期処理を行うために、小さいサーバを用意します。
 
 _(index.js)_
 ```javascript
@@ -348,10 +353,9 @@ server.listen( () => {
 })
 ```
 
-`node index.js` でサーバを移動するようになりました。`/secret` 以外のリクエストは `404` に
-なりました。
+`node index.js` でサーバを起動できるようになりました。`/secret` 以外へのリクエストは `404` を返します。
 
-ちょっとだけこのセットアップを綺麗にしましょう。`package.json` に `start` のスクリプトを追加した方がいいです：
+このセットアップを少し綺麗にしましょう。`package.json` に `start` のスクリプトを追加しましょう：
 
 ```json
 "scripts": {
@@ -360,40 +364,40 @@ server.listen( () => {
 }
 ```
 
-そうするとただの `npm start` でサーバーを立ち上がるようになりました。
+こうすることで、`npm start` を実行するだけでサーバーが立ち上がるようになります。
 
 ### 🏳 `now` で起動
 
-`now` を使うためにまずは `now` をインストールしないといけません：
+`now` を使うためにまずは `now` をインストールする必要があります：
 
 ```bash
 $ npm install now -g
 ```
-_(メモ；設定に夜 `sudo` で移動しないといけません)_
+_(メモ；あなたの環境次第では、`sudo` を追加して実行する必要があります)_
 
-インストールしてからはサーバを立ち上がるの非常に簡単です：
+インストールが完了したら、サーバを立ち上げるのは非常に簡単です：
 
 ```bash
 $ now
 ```
 
-これをかくときにサーバをデプロイしましたのでここみにきてください：
+実際にデプロイしてみたので、こちらへアクセスしてみてください：
 
 https://zei-sca-git-iirtkazzso.now.sh/
 
-`not found` になりました。`/secret` をアクセスすると `you found me!` が出てきます。
+`not found` になりました。`/secret` をアクセスすると `you found me!` が表示されます。
 
 https://zei-sca-git-iirtkazzso.now.sh/secret
 
-ソースコードもすでに読められるようになりました：
+ソースコードもすでに読むことができます：
 
 https://zei-sca-git-iirtkazzso.now.sh/_src/?f=index.js
 
-## 🏁 全てを繋がりましょう
+## 🏁 全てを繋げましょう
 
-### 1.) 全てのデーターをロードしよう
+### 1.) 全てのデータをロードしよう
 
-`./lib/loadTeams.js` はまだ全てのチームデータをロードしていません。だから、API で全てのデータが出るようにしましょう：
+`./lib/loadTeams.js` は全てのチームデータをまだロードしていません。API で全てのデータが出るようにしましょう：
 
 _(lib/loadTeams)_
 ```javascript
@@ -417,11 +421,11 @@ query Organization ($login: String!) {
 }
 ```
 
-それでリクエストごとに必要なチームデータいただけるようになります。
+これで、リクエストごとに必要なチームのデータを取得することができます。
 
 ### 2.) データをサーバに保存しましょう
 
-`/secret` のパスにアクセスするとサーバは Sync を移動したいです。
+`/secret` のパスにアクセスした際に、Sync を実行します。
 
 ```javascript
 const sync = require('./lib/sync.js')
@@ -438,10 +442,9 @@ const GITHUB_ORG = 'nodeschool'
   }
 ```
 
-全てのシステムを書くためには時間が足りていないから。ただチームを保存するようにしましょう。
+全てのシステムを書くには時間が足りないので、今回はチームのデータを保存するのみにしましょう。
 
-さらに簡単になるように　[bluebird](http://bluebirdjs.com/docs/getting-started.html)
-と言うパッケージを使いましょう。
+さらに実装を簡単にするために [bluebird](http://bluebirdjs.com/docs/getting-started.html) を使いましょう。
 
 ```bash
 $ npm i bluebird --save
@@ -456,21 +459,21 @@ const running = {}
 
 module.exports = login => {
   if (running[login]) {
-    // 今のプロゼスを使います。 DDOS 防止
+    // 今のプロセスを使います。DDOS の防止。
     return running[login]
   }
   return running[login] = loadTeams(login)
     .then((result) => {
       var teams = result
         .data.organization.teams.edges
-        // ただ `node` が必要です
+        // `node` が必要です
         .map(edge => edge.node)
-        // 見えるようなチームのみ
+        // 見えるチームのみ
         .filter(team => team.privacy !== 'SECRET')
 
       return map(
         teams,
-        // エラーをむしにします
+        // エラーを無視します
         team => create(team).catch(e => null),
         // Scaphold への DDOS 防止
         { concurrency: 5 }
@@ -483,11 +486,11 @@ module.exports = login => {
 }
 ```
 
-このように `/secret` をアクセスすると全てのチームを Github から Scaphold へ Sync しています。
+このように `/secret` をアクセスすると、全てのチームを Github から Scaphold へ Sync していきます。
 
-### 3.) 秘密で起動
+### 3.) セキュアに起動
 
-まずは残っている `GITHUB_ORG` と `SECRET` は `GITHUB_TOKEN` と同じように環境変数で設定でき流ようにしよう。
+`GITHUB_ORG` と `SECRET` も、`GITHUB_TOKEN` と同じように環境変数で設定しましょう。
 
 ```javascript
 const SECRET = '/' + process.env.SECRET
@@ -496,14 +499,14 @@ if (!SECRET) {
 }
 ```
 
-その後は 4つの変数がサーバーのスタートのために必要になりました：
+これで、下記の４つの変数がサーバーの起動時に必要となります：
 
 - `SECRET`
 - `GITHUB_ORG`
 - `GITHUB_TOKEN`
 - `SCAPHOLD_TOKEN`
 
-その環境変数は `now` のスタートに追加するだけです
+環境変数を設定するには `now` の実行時に追加するだけです：
 
 ```bash
 $ now -e SECRET=secret \
@@ -512,7 +515,7 @@ $ now -e SECRET=secret \
       -e SCAPHOLD_TOKEN=ABCScapholdForTheWinXYZ
 ```
 
-最終的にサーバーが動いているかどうかが簡単確認できます：
+最終的にサーバーが動いているかどうかは、このコマンドで簡単確認できます：
 
 ```bash
 $ curl https://zei-sca-git-yhyfypszsj.now.sh/secret
@@ -520,15 +523,15 @@ $ curl https://zei-sca-git-yhyfypszsj.now.sh/secret
 
 🤓 イェー! できました！ ✋🏽
 
-公開 API を拝見するためは [こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git?query=query%20%7B%0A%20%20viewer%20%7B%0A%20%20%20%20allTeams%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20slug%0A%20%20%20%20%20%20%20%20%20%20privacy%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)。
+公開 API を閲覧するためは [こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git?query=query%20%7B%0A%20%20viewer%20%7B%0A%20%20%20%20allTeams%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20slug%0A%20%20%20%20%20%20%20%20%20%20privacy%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)。
 
 ## 🤔 まとめ
 
-GraphQL のおかげでは開発の未来がちょっと明るくなりそうです。
-Schema のスペックが簡単にアクセスできるようになっているのが大事だし Scaphold
-のようなサービスは意外とうまくできているからです。Zeit のような Microservice Architecture
-と繋いで使うのが早くて簡単オーペンにアクセスできるようになると思うし独自の Technology
-にトラストしなくてもいいかも。🤑
+この記事で紹介したように、GraphQL は開発の未来を少し明るく照らしそうです。
+Schema のスペックに簡単にアクセスできるのは非常に便利で、 Scaphold
+のようなサービスは使ってみると意外と体に馴染みます。また、Zeit のようなマイクロサービス
+と繋いで使ってみるのも、簡単で早く、オープンにアクセスできますし、何よりもロックインされた独自
+な技術を使わなくて良いのは最高です🤑
 
-これの全てのコードは [Github](https://github.com/martinheidegger/zei-sca-git) にホストしてあります。とくに
-NodeSchool のためにその Repository へのちゃんとのサービスになるの PR があったらいいなと思います。
+この記事で紹介した全てのコードは [Github](https://github.com/martinheidegger/zei-sca-git) にホストしてあります。
+[NodeSchool](https://nodeschool.io/) を通じて誰でも簡単に学べるようにするために、この Repository を最適化するPRを頂けたら幸いです！
