@@ -159,4 +159,15 @@ _([`./scaphold.schema.json`](./scaphold.schema.json) は私の Schema のエキ�
 
 **データベースをゲッツ!** 🎉
 
-Scaphold は API だけではなくて API エクスプローラも用意しています。アクセスしたいなら[こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git)。
+Scaphold は API だけではなくて API エクスプローラも用意しています。拝見したいなら[こちらへ](https://us-west-2.api.scaphold.io/graphql/zei-sca-git)。
+
+### 🔒 セキュリティ
+
+Scaphold のデフォルトでは誰でもが全てのデータ変化できます。設定で管理者以外の変化制限をつける
+ことができます。
+
+<img alt="スクリーンショット： Scaphold の許可ボタン" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="80">
+
+"Everyone" が "read" だけの制限をつけましょう
+
+<img alt="スクリーンショット： Read のみの許可" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="200">
