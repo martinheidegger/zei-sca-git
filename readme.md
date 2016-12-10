@@ -262,7 +262,7 @@ test('create, read, update and delete a team', t => {
   return create({
     name: 'ABCD',
     slug: slug,
-    privacy: 'PUBLIC'
+    privacy: 'VISIBLE'
   }).then(team => {
     t.notEquals(team, null)
     t.equals(team.name, 'ABCD')
