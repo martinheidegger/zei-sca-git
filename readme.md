@@ -388,3 +388,33 @@ https://zei-sca-git-iirtkazzso.now.sh/secret
 ソースコードもすでに読められるようになりました：
 
 https://zei-sca-git-iirtkazzso.now.sh/_src/?f=index.js
+
+## 🏁 全てを繋がりましょう
+
+### 1.) 全てのデーターをロードしよう
+
+`./lib/loadTeams.js` はまだ全てのチームデータをロードしていません。だから、API で全てのデータが出るようにしましょう：
+
+_(lib/loadTeams)_
+```javascript
+query Organization ($login: String!) {
+  organization(login: $login) {
+    id
+    teams(first: 30) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          name
+          privacy
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+それでリクエストごとに必要なチームデータいただけるようになります。
