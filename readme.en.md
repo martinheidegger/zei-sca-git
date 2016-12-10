@@ -135,7 +135,8 @@ Then we can run `$ npm test` and we it should be green.
 ## 🛠 Prepare the Database
 Since we use GraphQL to access Github, for this experiment we use GraphQL to
 store our data as well! Recently GraphQL as a service databases services appeared.
-Scaphold is our choice for this experiment. Let's [create an account]()!
+Scaphold is our choice for this experiment. Let's
+[create an account](https://scaphold.io/)!
 
 <img alt="Screenshot: Sign Up to Scaphold" src="https://i.gyazo.com/ae41d9f25669b1069e281153e26a3e2b.png" width="200">
 
