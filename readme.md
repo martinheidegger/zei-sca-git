@@ -315,3 +315,11 @@ if (!GITHUB_TOKEN) {
   throw new Error('Please specify the GITHUB_TOKEN environment variable')
 }
 ```
+
+それからはこのようにテストを移動するようになりました：
+
+```bash
+$ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
+      SCAPHOLD_TOKEN=ABCScapholdForTheWinXYZ \
+      npm test
+```
