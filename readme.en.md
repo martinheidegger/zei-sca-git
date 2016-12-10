@@ -174,3 +174,132 @@ Limit the permissions for "Everyone" to "read"
 
 <img alt="Screenshot: Permissions Read only" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="200">
 
+### 💾 Store some data
+
+GraphQL does not just allow to request data, we can also modify it! In GraphQL
+that is called ["Mutation"](http://graphql.org/learn/queries/#mutations).
+
+For our test we want to be able to modify everything so we have to get an
+"Admin Token" first.
+
+<img alt="Screenshot: Admin Token Section in settings" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="500">
+
+As Placeholder let me use "ABCScapholdForTheWinXYZ" in the examples.
+Now, Lets start using the [GraphQL mutation API](https://scaphold.io/docs/#mutations).
+
+_(lib/teamCRUD.js)_
+```javascript
+require('isomorphic-fetch')
+
+const fetch = require('graphql-fetch')(
+  'https://us-west-2.api.scaphold.io/graphql/zei-sca-git'
+)
+const SCAPHOLD_TOKEN = 'ABCScapholdForTheWinXYZ'
+const HEADERS = {
+  headers: new Headers({
+    Authorization: `bearer ${SCAPHOLD_TOKEN}`
+  })
+}
+
+exports.create = team =>
+  fetch(`
+    mutation CreateTeam($team: CreateTeamInput!) {
+      createTeam(input: $team) {
+        changedTeam {
+          id
+          slug
+          privacy
+          name
+        }
+      }
+    }
+  `, { team }, HEADERS).then(result => result.data && result.data.createTeam.changedTeam)
+
+exports.read = id =>
+  fetch(`
+    query ReadTeam($id: ID!) {
+      getTeam(id: $id) {
+        id
+        slug
+        privacy
+        name
+      }
+    }
+  `, { id }, HEADERS).then(result => result.data && result.data.getTeam)
+
+exports.update = team =>
+  fetch(`
+    mutation UpdateTeam($team: UpdateTeamInput!) {
+      updateTeam(input: $team) {
+        changedTeam {
+          id
+          slug
+          privacy
+          name
+        }
+      }
+    }
+  `, { team }, HEADERS).then(result => result.data && result.data.updateTeam.changedTeam)
+
+exports.del = id =>
+  fetch(`
+    mutation DeleteTeam($team: DeleteTeamInput!) {
+      deleteTeam(input: $team) {
+        changedTeam { slug }
+      }
+    }
+  `, { team: { id } }, HEADERS).then(result => (result.data && result.data.deleteTeam) ? true : false)
+
+```
+
+With those 4 methods we have a complete CRUD API specification.
+We can immediately test this!
+
+_(test/teamCRUD.js)_
+```javascript
+const { test } = require('tap')
+const { create, read, update, del } = require('../lib/teamCRUD.js')
+
+test('create, read, update and delete a team', t => {
+  let id
+  let slug = 'abcd' + Math.random().toString(32)
+  return create({
+    name: 'ABCD',
+    slug: slug,
+    privacy: 'PUBLIC'
+  }).then(team => {
+    t.notEquals(team, null)
+    t.equals(team.name, 'ABCD')
+    t.equals(team.slug, slug)
+    t.equals(team.privacy, 'VISIBLE')
+    t.notEquals(team.id)
+    id = team.id
+    return read(id)
+  }).then(team => {
+    t.notEquals(team, null)
+    t.equals(team.id, id)
+    t.equals(team.name, 'ABCD')
+    team.name = 'EFGH'
+    return update(team)
+  }).then(team => {
+    t.notEquals(team, null)
+    t.equals(team.id, id)
+    t.equals(team.name, 'EFGH')
+    return read(id)
+  }).then(team => {
+    t.notEquals(team, null)
+    t.equals(team.id, id)
+    t.equals(team.name, 'EFGH')
+    return del(id)
+  }).then(successful => {
+    t.equals(successful, true)
+    return read(id)
+  }).then(team => {
+    t.equals(team, null)
+  })
+})
+
+```
+
+**Yeah! Now we can store data!**  🎉
+
