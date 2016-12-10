@@ -6,8 +6,8 @@
 ## 💡 コンゼプト
 
 ### 問題
-このサービスで対応したいのは Github の問題です。実は Github の Organization は "public"な
-チームがありますが、Organization 以外のかたはそのチームを見えません。
+このサービスで対応したいのは Github の問題です。実は Github の Organization は "public"なチームがありますが、
+Organization 以外のかたはそのチームを見えません。
 
 例えば、ログインしていない場合または NodeSchool のメンバーじゃない場合では
 [NodeSchool のページ](https://github.com/nodeschool)にはチームタブがありません。その
@@ -25,5 +25,4 @@ Zeit のデプロイシステムはめっちゃ簡単なので絶対便利にな
 今までよくはやっている REST API の変われいにもうちょっと格好よく開発したいです。そのためは
 [GraphQL](http://graphql.org/) の API を用意したいです。もしかしたさらにフレキシブルです。もしかしたもっと早いです。
 
-私たちの運がいいです。[scaphold](https://scaphold.io) というサービスは GraphQL の
-データベースを少ないデータのために無料に出しています。楽しみです！
+私たちの運がいいです。[scaphold](https://scaphold.io) というサービスは GraphQL のデータベースを少ないデータのために無料に出しています。楽しみです！
