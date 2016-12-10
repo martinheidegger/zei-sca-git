@@ -366,4 +366,3 @@ To clean it up a little we should add a `start` script to the `package.json`:
 ```
 
 With this script we can start the same server using `npm start`.
-
