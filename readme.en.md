@@ -30,7 +30,7 @@ Instead of a common REST API we think we are cool and want to provide a fancier
 Luckily [scaphold](https://scaphold.io) offers a service that allows to use
 a GraphQL database for free. This should make our code very easy.
 
-## Github API
+## 😺 Github API
 If you used the Github API before you might think this is old stuff, but
 **Github has an [early-access](https://developer.github.com/early-access/)
 [GraphQL API](https://developer.github.com/early-access/graphql/)**.

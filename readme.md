@@ -27,7 +27,7 @@ Zeit のデプロイシステムはめっちゃ簡単なので絶対便利にな
 
 私たちの運がいいです。[scaphold](https://scaphold.io) というサービスは GraphQL のデータベースを少ないデータのために無料に出しています。楽しみです！
 
-## Github API
+## 😺 Github API
 以前に Github の API 使っている方は今が古い話になると思うでしょうか？違っています！最近は
 **Github の[新しい "early-access" プログラム](https://developer.github.com/early-access/)では
 [GraphQL API](https://developer.github.com/early-access/graphql/) を公開しました！**
