@@ -138,7 +138,7 @@ store our data as well! Recently GraphQL as a service databases services appeare
 Scaphold is our choice for this experiment. Let's
 [create an account](https://scaphold.io/)!
 
-<img alt="Screenshot: Sign Up to Scaphold" src="https://i.gyazo.com/ae41d9f25669b1069e281153e26a3e2b.png" width="200">
+<img alt="Screenshot: Sign Up to Scaphold" src="https://i.gyazo.com/beb8ad1f4aa20c05ef7ee08196e9e823.png" width="200">
 
 Once you created an account you can create an application:
 

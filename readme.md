@@ -140,7 +140,7 @@ GraphQL-as-as-Service のサービスもいくつかあります。今回の実�
 
 _(ノート： `Scaphold` の発音は `Scaffold` と同じです)_
 
-<img alt="スクリーンショット： Scaphold のサインアップのフォーム" src="https://i.gyazo.com/ae41d9f25669b1069e281153e26a3e2b.png" width="200">
+<img alt="スクリーンショット： Scaphold のサインアップのフォーム" src="https://i.gyazo.com/beb8ad1f4aa20c05ef7ee08196e9e823.png" width="200">
 
 アカウントを作成すると、アプリを作ることができるようになります。
 
