@@ -168,11 +168,11 @@ Scaphold immediately creates an API explorer with all the documentation for us:
 By default all data in Scaphold is unprotected. You can add a setting to allow
 only admin users to modify data.
 
-<img alt="Screenshot: Scaphold Permissions Button" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="80">
+<img alt="Screenshot: Scaphold Permissions Button" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="161">
 
 Limit the permissions for "Everyone" to "read"
 
-<img alt="Screenshot: Permissions Read only" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="200">
+<img alt="Screenshot: Permissions Read only" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="303">
 
 ### 💾 Store some data
 
@@ -182,7 +182,7 @@ that is called ["Mutation"](http://graphql.org/learn/queries/#mutations).
 For our test we want to be able to modify everything so we have to get an
 "Admin Token" first.
 
-<img alt="Screenshot: Admin Token Section in settings" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="500">
+<img alt="Screenshot: Admin Token Section in settings" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="743">
 
 As Placeholder let me use "ABCScapholdForTheWinXYZ" in the examples.
 Now, Lets start using the [GraphQL mutation API](https://scaphold.io/docs/#mutations).

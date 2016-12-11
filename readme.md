@@ -169,11 +169,11 @@ Scaphold は API だけではなく、API エクスプローラも用意して�
 Scaphold のデフォルトでは、誰でも全てのデータを変更できます。設定で管理者以外の変更制限をつける
 ことが可能です。
 
-<img alt="スクリーンショット： Scaphold の許可ボタン" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="80">
+<img alt="スクリーンショット： Scaphold の許可ボタン" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="161">
 
 "Everyone" が "read only" になるように制限を追加しましょう。
 
-<img alt="スクリーンショット： Read のみの許可" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="200">
+<img alt="スクリーンショット： Read のみの許可" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="303">
 
 ### 💾 データを保存しましょう
 
@@ -182,7 +182,7 @@ GraphQL は、データをアクセスするのためだけに使うではなく
 
 テストを書くのに、データを自由に変更できるようにしましょう。そのためには、"Admin Token" が必要となります。
 
-<img alt="スクリーンショット： 設定の Admin Token のセクション" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="500">
+<img alt="スクリーンショット： 設定の Admin Token のセクション" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="743">
 
 実装例として今回は "ABCScapholdForTheWinXYZ" を使いますが、
 実際のコードではあなたが取得したトークンを利用してください。
