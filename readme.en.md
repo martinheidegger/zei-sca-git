@@ -138,25 +138,25 @@ store our data as well! Recently GraphQL as a service databases services appeare
 Scaphold is our choice for this experiment. Let's
 [create an account](https://scaphold.io/)!
 
-<img alt="Screenshot: Sign Up to Scaphold" src="https://i.gyazo.com/beb8ad1f4aa20c05ef7ee08196e9e823.png" width="200">
+<img alt="Screenshot: Sign Up to Scaphold" src="https://i.gyazo.com/beb8ad1f4aa20c05ef7ee08196e9e823.png" width="257">
 
 Once you created an account you can create an application:
 
-<img alt="Screenshot: Create an App" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="370">
+<img alt="Screenshot: Create an App" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="475">
 
-<img alt="Screenshot: App Details" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="380">
+<img alt="Screenshot: App Details" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="413">
 
 Now that we have created the app we can specify the Types we want to
 store. This is a little bit like a MySQL table specification:
 
-<img alt="Screenshot: Add Type Button in Scaphold interface" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="200">
+<img alt="Screenshot: Add Type Button in Scaphold interface" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="197">
 
 Define a scheme like in [`./scaphold.schema`](./scaphold.schema)
 _([`./scaphold.schema.json`](./scaphold.schema.json) is an export of my schema)_.
 
 Now that we also have the data schema we can use it to store our teams. Scaphold immediately offers a link for it:
 
-<img alt="Screenshot: API link in Scaphold" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="260">
+<img alt="Screenshot: API link in Scaphold" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="329">
 
 **Now we have a database!** 🎉
 

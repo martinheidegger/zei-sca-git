@@ -140,17 +140,17 @@ GraphQL-as-as-Service のサービスもいくつかあります。今回の実�
 
 _(ノート： `Scaphold` の発音は `Scaffold` と同じです)_
 
-<img alt="スクリーンショット： Scaphold のサインアップのフォーム" src="https://i.gyazo.com/beb8ad1f4aa20c05ef7ee08196e9e823.png" width="200">
+<img alt="スクリーンショット： Scaphold のサインアップのフォーム" src="https://i.gyazo.com/beb8ad1f4aa20c05ef7ee08196e9e823.png" width="257">
 
 アカウントを作成すると、アプリを作ることができるようになります。
 
-<img alt="スクリーンショット： アプリのフォーム" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="370">
+<img alt="スクリーンショット： アプリのフォーム" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="475">
 
-<img alt="スクリーンショット： アプリの情報" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="380">
+<img alt="スクリーンショット： アプリの情報" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="413">
 
 アプリを作成したら、その Type を設定しましょう。少しだけ MySQL のテーブルの設定に似ています：
 
-<img alt="スクリーンショット： Scaphold の "Add Type" のボタン" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="200">
+<img alt="スクリーンショット： Scaphold の "Add Type" のボタン" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="197">
 
 このような Schema を設定してください [`./scaphold.schema`](./scaphold.schema)
 _([`./scaphold.schema.json`](./scaphold.schema.json) は私の Schema のエキスポートしたファイルです)_.
@@ -158,7 +158,7 @@ _([`./scaphold.schema.json`](./scaphold.schema.json) は私の Schema のエキ�
 このデータ Schema で、チームのデータを保存できるようになりました。アプリの作成が完了したら、
 Scapholdが API を用意してくれます：
 
-<img alt="スクリーンショット： Scaphold の "API link" ディスプレイ" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="260">
+<img alt="スクリーンショット： Scaphold の "API link" ディスプレイ" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="329">
 
 **データベースをゲッツ!** 🎉
 
