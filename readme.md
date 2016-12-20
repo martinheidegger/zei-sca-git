@@ -11,6 +11,9 @@
 
 例えば、ログインしていない場合、あるいは NodeSchool のメンバーではない場合、
 [NodeSchool のページ](https://github.com/nodeschool)にはチームのタブがありません。
+
+![https://i.gyazo.com/e4defee231df714b0cc4d8b12f1f51f7.png]
+
 そのタブの内容を誰にでも見れるようにしてみましょう。
 
 ### 解決
@@ -68,11 +71,11 @@ $ git add .; git commit -m "初めてのコミット"
 [`tap`](https://www.npmjs.com/package/tap) パッケージをインストールしましょう。
 
 ```sh
-$ npm install --save graphql-fetch isometric-fetch
+$ npm install --save graphql-fetch isomorphic-fetch
 $ npm install --save-dev tap
 ```
 
-_(`graphql-fetch` のために `isometric-fetch` が必須です)_
+_(`graphql-fetch` のために `isomorphic-fetch` が必須です)_
 
 Github の GraphQL 仕様はこちらです： https://api.github.com/graphql
 このドキュメントによると、以下のやり方で API 経由でデータを取得できます。
@@ -83,7 +86,7 @@ const fetch = require('graphql-fetch')('https://api.github.com/graphql')
 ```
 
 アクセスのためには [Github Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) が必要となります。
-コード例では "ABCGithubIsSweetXYZ" という文字列を使ってみますが、あなたが取得したトークンを実際のコードでは利用してください。
+コード例では `'ABCGithubIsSweetXYZ'` という文字列を使ってみますが、あなたが取得したトークンを実際のコードでは利用してください。
 
 ```js
 const GITHUB_TOKEN = 'ABCGithubIsSweetXYZ'
@@ -133,6 +136,8 @@ test('organization id をゲッツ', t =>
 これを追加することで、これからは `$ npm test` でテストを動かすことができます。
 試しに実行してみてください、問題なく動作するはずです。
 
+<img alt="スクリーンショット：テストの結果は緑" width="464" src="https://i.gyazo.com/29eafdd7e5f45a220c6039a6d8d35154.png">
+
 ## 🛠 データベースの準備
 GraphQL で Github のデータをアクセスするので、データの保存にも GraphQL を活用しましょう！最近では、
 GraphQL-as-as-Service のサービスもいくつかあります。今回の実験のために、Scaphold
@@ -171,7 +176,7 @@ Scaphold のデフォルトでは、誰でも全てのデータを変更でき�
 
 <img alt="スクリーンショット： Scaphold の許可ボタン" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="161">
 
-"Everyone" が "read only" になるように制限を追加しましょう。
+`Everyone` が `read only` になるように制限を追加しましょう。
 
 <img alt="スクリーンショット： Read のみの許可" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="303">
 
@@ -180,11 +185,11 @@ Scaphold のデフォルトでは、誰でも全てのデータを変更でき�
 GraphQL は、データをアクセスするのためだけに使うではなく、データを更新するためにも使えます！ GraphQL
 ではその変更のことを ["Mutation"](http://graphql.org/learn/queries/#mutations) と呼びます。
 
-テストを書くのに、データを自由に変更できるようにしましょう。そのためには、"Admin Token" が必要となります。
+テストを書くのに、データを自由に変更できるようにしましょう。そのためには、`Admin Token` が必要となります。
 
 <img alt="スクリーンショット： 設定の Admin Token のセクション" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="743">
 
-実装例として今回は "ABCScapholdForTheWinXYZ" を使いますが、
+実装例として今回は `'ABCScapholdForTheWinXYZ'` を使いますが、
 実際のコードではあなたが取得したトークンを利用してください。
 では、[GraphQL mutation API](https://scaphold.io/docs/#mutations) を使いましょう！
 
@@ -253,7 +258,8 @@ exports.del = id =>
 
 ```
 
-上の４つの関数を以て、CRUD な API の実装が完了しました。もちろん、テストも書けます！
+上の４つの関数を以て、[CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
+な API が完了しました。もちろん、テストも書けます！
 
 _(test/teamCRUD.js)_
 ```javascript
@@ -331,7 +337,9 @@ $ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
 
 ### 🏴 軽いサーバ
 
-同期処理を行うために、小さいサーバを用意します。
+同期処理を行うために、小さいサーバを用意します。このプロジェクトのために Node.js のすでにある
+[`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_requestlistener)
+は足ります。
 
 _(index.js)_
 ```javascript
@@ -354,6 +362,7 @@ server.listen( () => {
 ```
 
 `node index.js` でサーバを起動できるようになりました。`/secret` 以外へのリクエストは `404` を返します。
+_（ `/secret` のリクエストには `you found me!` を返します。）_
 
 このセットアップを少し綺麗にしましょう。`package.json` に `start` のスクリプトを追加しましょう：
 
@@ -394,12 +403,13 @@ https://zei-sca-git-iirtkazzso.now.sh/secret
 https://zei-sca-git-iirtkazzso.now.sh/_src/?f=index.js
 
 ## 🏁 全てを繋げましょう
+それぞれの部分はちゃんと動いてますが、砂がらないと結局なにも
 
 ### 1.) 全てのデータをロードしよう
 
 `./lib/loadTeams.js` は全てのチームデータをまだロードしていません。API で全てのデータが出るようにしましょう：
 
-_(lib/loadTeams)_
+_(lib/loadTeams.js)_
 ```javascript
 query Organization ($login: String!) {
   organization(login: $login) {
@@ -427,6 +437,7 @@ query Organization ($login: String!) {
 
 `/secret` のパスにアクセスした際に、Sync を実行します。
 
+_(index.js)_
 ```javascript
 const sync = require('./lib/sync.js')
 const GITHUB_ORG = 'nodeschool'
@@ -534,4 +545,8 @@ Schema のスペックに簡単にアクセスできるのは非常に便利で�
 な技術を使わなくて良いのは最高です🤑
 
 この記事で紹介した全てのコードは [Github](https://github.com/martinheidegger/zei-sca-git) にホストしてあります。
-[NodeSchool](https://nodeschool.io/) を通じて誰でも簡単に学べるようにするために、この Repository を最適化するPRを頂けたら幸いです！
+
+_よろしくお願いいたします_
+
+[NodeSchool](https://nodeschool.io/) のためにはこのようなサーバが役に立っていますので
+このベースでちゃんとの Sync サーバができたら嬉しいです。

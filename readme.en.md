@@ -1,42 +1,48 @@
 # ⏱ Zei - 🏢 Sca - 😺 Git
 [zeit/now](https://zeit.co/now) - [scaphold](https://scaphold.io) -  [github](https://developer.github.com)
 
-Today we are trying to build a little service that makes use of modern, open
-technologies that should be easy to get started.
+A step-by-step walk-through to build a little service that makes use of
+modern, open technologies.
 
 ## 💡 Concept
 
 ### Problem
-Todays problem that we try to solve is that Github doesn't show the public teams
-to non-organization members.
+The problem that we try to solve today is that Github doesn't show the public
+teams to non-organization members.
 
-For example, if you are logged-out of github or are not a member of
-NodeSchool and go to the [NodeSchool page](https://github.com/nodeschool)
-it will not show the "Teams" tab. However for publicity reasons we want to
-make the public teams visible to everyone.
+For example: if you are logged-out of Github _(or you are not a member of
+NodeSchool)_ and go to the [NodeSchool page](https://github.com/nodeschool)
+: it will not show the "Teams" tab.
+
+![https://i.gyazo.com/e4defee231df714b0cc4d8b12f1f51f7.png]
+
+For making the community clearer and giving recognition to the members in the
+team we want to make the public teams visible to everyone.
 
 ### Solution
-We write a little Node.js server that fetches the teams from Github and stores
-it in a database it also later offers the data to the public.
+Let's write a little [Node.js](https://nodejs.org) server that fetches the teams
+from Github and stores them in a database. This server then offers the data to
+the public.
 
 ### CPU & Memory
-[Zeit/now](https://zeit.co/now) offers free CPU to open-source projects. Not
-just that: the deployment process is very simple so it comes in handy.
+[Zeit/now](https://zeit.co/now) offers free CPU for open-source projects. Not
+just that: it will come in handy that setting-up process is very simple.
 
 ### Storage
-Instead of a common REST API we think we are cool and want to provide a fancier
-[GraphQL](http://graphql.org/) API which is more flexible and perhaps faster.
+Instead of a common REST API, we try to go with the times and provide a fancier
+[GraphQL](http://graphql.org/) API. This is more flexible and perhaps faster.
 
-Luckily [scaphold](https://scaphold.io) offers a service that allows to use
-a GraphQL database for free. This should make our code very easy.
+Luckily [Scaphold](https://scaphold.io) offers a free GraphQL database as a
+service.
 
 ## 😺 Github API
-If you used the Github API before you might think this is old stuff, but
-**Github has an [early-access](https://developer.github.com/early-access/)
-[GraphQL API](https://developer.github.com/early-access/graphql/)**.
+If you used the Github API before, you might be all like "been-there-done-that",
+but **Github has an [early-access](https://developer.github.com/early-access/)
+[GraphQL API](https://developer.github.com/early-access/graphql/)** which makes
+this a little more exciting.
 
-To access the API through node, first init the project `zei-sca-git`:
-_(Note: the installation of Node & Git is assumed)_
+To access the API through Node, first init the project `zei-sca-git`:
+_(Note: the installation of Node.js 7 & Git is assumed)_
 
 ```sh
 $ mkdir zei-sca-git; cd zei-sca-git
@@ -44,11 +50,11 @@ $ npm init -y
 $ git init
 ```
 
-Then we take care of common node steps:
+Then we take care of common node setup steps:
 
-1. Add `"private": true` to the package.json to make sure we don't accidentally
+1. Add `"private": true` to the `package.json` to make sure we don't accidentally
     publish it prematurely.
-2. Add `author`, `description` and `keyword` metadata to the package.json to
+2. Add `author`, `description` and `keyword` metadata to the `package.json` to
     be clear about our intent.
 3. Make sure that the `node_modules` folder is part of `.gitignore`
 
@@ -63,34 +69,36 @@ $ git add .; git commit -m "initial commit"
 ```
 
 ### Use the GraphQL Github API in Node
-
 Lets first install the [`graphql-fetch`](https://www.npmjs.com/package/graphql-fetch)
 package and add [`tap`](https://www.npmjs.com/package/tap) to test our progress.
 
 ```sh
-$ npm install --save graphql-fetch isometric-fetch
+$ npm install --save graphql-fetch isomorphic-fetch
 $ npm install --save-dev tap
 ```
 
-_(`graphql-fetch` requires `isometric-fetch`)_
+_(`graphql-fetch` requires `isomorphic-fetch`)_
 
-The GraphQL specification for github is: https://api.github.com/graphql so we
-can prepare the fetch call like this:
+The GraphQL specification for Github is available at https://api.github.com/graphql
+, so we can prepare the fetch call like this:
 
 _(lib/loadTeams.js)_
 ```js
 const fetch = require('graphql-fetch')('https://api.github.com/graphql')
 ```
 
-We will need a [Github Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
-. As Placeholder let me use "ABCGithubIsSweetXYZ" in the examples.
+We will also need a [Github Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
+. As Placeholder let me use `'ABCGithubIsSweetXYZ'` in the examples.
 
 ```js
 const GITHUB_TOKEN = 'ABCGithubIsSweetXYZ'
 ```
 
 We can then use the documentation available [here](https://developer.github.com/early-access/graphql/explorer/)
-to fetch an organization ID for a `login`:
+to immediately test the API online.
+
+With some reading of docs we learn to fetch an organization ID for a `login`
+like this:
 
 ```js
 module.exports = (login) =>
@@ -107,7 +115,7 @@ module.exports = (login) =>
   })
 ```
 
-and in the tests we simply check if the id is correct:
+With `tap` we then simple can write tests to check if the ID is correct:
 
 _(../test/loadTeams.js)_
 ```js
@@ -121,8 +129,8 @@ test('get organization id', t =>
 )
 ```
 
-Now that we have the code and the tests we just need to add the scripts
-to the `package.json`.
+Now that we have the code and the tests, we just need to add the test script
+to the `package.json`:
 
 ```json
 "scripts": {
@@ -130,62 +138,69 @@ to the `package.json`.
 }
 ```
 
-Then we can run `$ npm test` and we it should be green.
+With this, we can run `$ npm test` and it should be green.
+
+<img alt="Screenshot: Tests are green" width="464" src="https://i.gyazo.com/29eafdd7e5f45a220c6039a6d8d35154.png">
 
 ## 🛠 Prepare the Database
-Since we use GraphQL to access Github, for this experiment we use GraphQL to
-store our data as well! Recently GraphQL as a service databases services appeared.
-Scaphold is our choice for this experiment. Let's
+Since we already use GraphQL to access Github, we can go all the way and use GraphQL
+to store our data as well! Recently, several "GraphQL-as-a-Service" databases
+were launched. Scaphold is our choice for this experiment, so let's
 [create an account](https://scaphold.io/)!
 
 <img alt="Screenshot: Sign Up to Scaphold" src="https://i.gyazo.com/beb8ad1f4aa20c05ef7ee08196e9e823.png" width="257">
 
-Once you created an account you can create an application:
+With the new account we can further create an app:
 
 <img alt="Screenshot: Create an App" src="https://i.gyazo.com/e4ba1a68cb85f199f302f34ea93c13a2.png" width="475">
 
 <img alt="Screenshot: App Details" src="https://i.gyazo.com/fd45405742040ab3f495bb37e8510c3c.png" width="413">
 
-Now that we have created the app we can specify the Types we want to
-store. This is a little bit like a MySQL table specification:
+Now that we have created the app, we can specify the `Types` we would like to store.
+If you have specified MySQL tables before then this might feel familiar:
 
 <img alt="Screenshot: Add Type Button in Scaphold interface" src="https://i.gyazo.com/4e164a5fe0799e620afec5b9a3f9e5f9.png" width="197">
 
-Define a scheme like in [`./scaphold.schema`](./scaphold.schema)
-_([`./scaphold.schema.json`](./scaphold.schema.json) is an export of my schema)_.
+For today's work we need a schema that looks like [`./scaphold.schema`](./scaphold.schema)
+_([`./scaphold.schema.json`](./scaphold.schema.json) is an export of the schema
+I created in preparation)_.
 
-Now that we also have the data schema we can use it to store our teams. Scaphold immediately offers a link for it:
+Now that we also have the data schema, we can use the app to store our teams!
+Scaphold offers a direct link to access our data storage:
 
 <img alt="Screenshot: API link in Scaphold" src="https://i.gyazo.com/5708b34eaea0be439ec52c7eee289b1a.png" width="329">
 
-**Now we have a database!** 🎉
+Scaphold also allows us to immediately explore the API to the data storage with
+[iGraphQL](https://us-west-2.api.scaphold.io/graphql/zei-sca-git).
 
-Scaphold immediately creates an API explorer with all the documentation for us:
-[here](https://us-west-2.api.scaphold.io/graphql/zei-sca-git).
+**Now we have a database!** 🎉
 
 ### 🔒 Security
 
-By default all data in Scaphold is unprotected. You can add a setting to allow
-only admin users to modify data.
+By default all data in Scaphold is **unprotected**. But it is possible to add a
+setting that allows the modification of data only to admin users.
 
 <img alt="Screenshot: Scaphold Permissions Button" src="https://i.gyazo.com/16178c98310436c17757cf8dfa3b7fe0.png" width="161">
 
-Limit the permissions for "Everyone" to "read"
+Limit the permissions for `Everyone` to `read`.
 
 <img alt="Screenshot: Permissions Read only" src="https://i.gyazo.com/9c3ac80281829b72b6d7e841569de7a0.png" width="303">
 
+With this setting active, only admin users can edit the data.
+
 ### 💾 Store some data
 
-GraphQL does not just allow to request data, we can also modify it! In GraphQL
-that is called ["Mutation"](http://graphql.org/learn/queries/#mutations).
+We can use GraphQL not _just_ to request data. We can also change it! In GraphQL
+that is called a ["Mutation"](http://graphql.org/learn/queries/#mutations).
 
-For our test we want to be able to modify everything so we have to get an
-"Admin Token" first.
+For our test we want to be able to modify everything, specially the protected parts,
+so we have to get an `Admin Token` first.
 
 <img alt="Screenshot: Admin Token Section in settings" src="https://i.gyazo.com/ed4d09d71682846b10e77f690a805659.png" width="743">
 
-As Placeholder let me use "ABCScapholdForTheWinXYZ" in the examples.
-Now, Lets start using the [GraphQL mutation API](https://scaphold.io/docs/#mutations).
+_As placeholder let me use `'ABCScapholdForTheWinXYZ'` in the following code._
+
+Now, Let's start using the [GraphQL mutation API](https://scaphold.io/docs/#mutations):
 
 _(lib/teamCRUD.js)_
 ```javascript
@@ -252,8 +267,9 @@ exports.del = id =>
 
 ```
 
-With those 4 methods we have a complete CRUD API specification.
-We can immediately test this!
+With those 4 methods we have a complete
+[CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) API.
+Let's immediately test this!
 
 _(test/teamCRUD.js)_
 ```javascript
@@ -304,13 +320,12 @@ test('create, read, update and delete a team', t => {
 **Yeah! Now we can store data!**  🎉
 
 ## 🚀 Setup a Server
-
 Now that we have storage and purpose we need to start using it! Before we do
-that though lets first move all our keys to environment variables 😅, if we
-keep them in the code it will be deployed to Zeit.
+that though, let's first move all our keys to environment variables 😅. If we
+keep them in the code they might become visible to everyone, and that would be
+[bad](https://snyk.io/blog/leaked-credentials-in-packages/).
 
 ### 🔑 Preparation: Environment variables
-
 We can easily use `process.env` to get the `GITHUB_TOKEN` and `SCAPHOLD_TOKEN`
 like this:
 
@@ -321,7 +336,7 @@ if (!GITHUB_TOKEN) {
 }
 ```
 
-in our tests we can then run:
+after this change we need to run the tests like this:
 
 ```bash
 $ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
@@ -330,8 +345,9 @@ $ env GITHUB_TOKEN=ABCGithubIsSweetXYZ \
 ```
 
 ### 🏴 Setup a simple Server
-
-We do still need a little server for the sync process.
+We **still** need a little server for the sync process. For this project
+[`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_requestlistener)
+that comes with Node.js is powerful enough.
 
 _(index.js)_
 ```javascript
@@ -354,7 +370,7 @@ server.listen( () => {
 ```
 
 With `node index.js` we can start the server and it will show a `404` error message
-for all pages except `/secret`.
+for all pages except `/secret` _(`/secret` will show `you found me!`)_.
 
 To clean it up a little we should add a `start` script to the `package.json`:
 
@@ -368,13 +384,16 @@ To clean it up a little we should add a `start` script to the `package.json`:
 With this script we can start the same server using `npm start`.
 
 ### 🏳 Launch it with `now`
+`Zeit/now` is [PaaS](https://en.wikipedia.org/wiki/Platform_as_a_service) that
+has computers running in the cloud with Node on them.
 
-For `now` to be used we need to install it using:
+`now` be used easily through a command line tool. We need to install this tool
+using:
 
 ```bash
 $ npm install now -g
 ```
-_(Note: some setups need to run this with `sudo`)_
+_(Note: some setups need to run this with `sudo npm install now -g`)_
 
 Then you can start the server simply using:
 
@@ -395,13 +414,14 @@ You can immediately look at the source code here:
 https://zei-sca-git-iirtkazzso.now.sh/_src/?f=index.js
 
 ## 🏁 Connect the parts
+All parts are working separately but we need to get them to work together.
+
 
 ### 1.) Get all data
-
 `./lib/loadTeams.js` does not load all the data of teams yet. So, lets
 change the API to return the full team object:
 
-_(lib/loadTeams)_
+_(lib/loadTeams.js)_
 ```javascript
 query Organization ($login: String!) {
   organization(login: $login) {
@@ -423,12 +443,13 @@ query Organization ($login: String!) {
 }
 ```
 
-Now we actually get the team data with every response.
+Now we get the team data with every response.
 
 ### 2.) Write the data to the server
 
 When the server gets to the secret path it should start the sync process:
 
+_(index.js)_
 ```javascript
 const sync = require('./lib/sync.js')
 const GITHUB_ORG = 'nodeschool'
@@ -444,9 +465,8 @@ const GITHUB_ORG = 'nodeschool'
   }
 ```
 
-Since we don't have the time to implement the whole system, lets just store
-the teams. To make it a little easier still, lets also use
-[bluebird](http://bluebirdjs.com/docs/getting-started.html).
+For a the start, lets just store the teams. To make our lives a little easier
+still, lets also use [bluebird](http://bluebirdjs.com/docs/getting-started.html).
 
 ```bash
 $ npm i bluebird --save
@@ -477,7 +497,8 @@ module.exports = login => {
         teams,
         // Eat error messages
         team => create(team).catch(e => null),
-        // No DDOS attack on Scaphold
+        // Limit the requests to 5 parallel, to prevent us accidentally DDOSing
+        // Scaphold
         { concurrency: 5 }
       )
     })
@@ -488,8 +509,7 @@ module.exports = login => {
 }
 ```
 
-This way, when the server is run with `/secret` it will sync all the teams
-from Github to scaphold.
+Accessing the server at `/secret` will sync all the teams from Github to Scaphold.
 
 ### 3.) Start with secrets
 
@@ -504,14 +524,14 @@ if (!SECRET) {
 }
 ```
 
-After that we have 4 variables that we need to start our server:
+After that we need 4 variables to start our server:
 
 - `SECRET`
 - `GITHUB_ORG`
 - `GITHUB_TOKEN`
 - `SCAPHOLD_TOKEN`
 
-All we need to do now is to start `now` with those variables.
+Abd we can easily start `now` with those variables.
 
 ```bash
 $ now -e SECRET=secret \
@@ -520,7 +540,7 @@ $ now -e SECRET=secret \
       -e SCAPHOLD_TOKEN=ABCScapholdForTheWinXYZ
 ```
 
-Finally the server is running and we can sync the data simply by running:
+The server should be running and we can sync the data simply by opening:
 
 ```bash
 $ curl https://zei-sca-git-yhyfypszsj.now.sh/secret
@@ -528,16 +548,19 @@ $ curl https://zei-sca-git-yhyfypszsj.now.sh/secret
 
 🤓 We did it! High Five! ✋🏽
 
-You can exlore the public API [here](https://us-west-2.api.scaphold.io/graphql/zei-sca-git?query=query%20%7B%0A%20%20viewer%20%7B%0A%20%20%20%20allTeams%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20slug%0A%20%20%20%20%20%20%20%20%20%20privacy%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)
+You can explore the public API [here](https://us-west-2.api.scaphold.io/graphql/zei-sca-git?query=query%20%7B%0A%20%20viewer%20%7B%0A%20%20%20%20allTeams%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20slug%0A%20%20%20%20%20%20%20%20%20%20privacy%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D).
 
 ## 🤔 Summary
 
 GraphQL as a method is bound to make our lives easier. The transportable
 schema definitions and new GraphQL services like Scaphold work surprisingly well.
-Combined with a Zeit microservice architecture we should be able to create
-quickly very useful open database while being much less dependent on the whims
-of Proprietary technologies. 🤑
+Combined with a　microservice architecture like `Zeit/now` we should be able to
+create quickly, very useful open database while being much less dependent on the
+whims of Proprietary technologies. 🤑
 
-All this code is hosted on [Github](https://github.com/martinheidegger/zei-sca-git)
-and, for NodeSchool, it would be super awesome if we could turn this into a
-full-fletched syncing server. PR welcome!
+All this code is hosted on [Github](https://github.com/martinheidegger/zei-sca-git).
+
+_I hope you enjoyed it!_
+
+One final note: For NodeSchool, it would be super awesome if we could turn this
+into concept or prototype into a full-fletched syncing server.
