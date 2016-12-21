@@ -4,7 +4,7 @@ A step-by-step guide through
 
 For the english version, please click [here](./readme.en.md).
 
-# 🇯🇵zei-sca-git
+# 🇯🇵 zei-sca-git
 簡単な　[zeit/now](https://zeit.co/now), [scaphold](https://scaphold.io) and [github](https://developer.github.com)
 のイントロです。
 
