@@ -112,7 +112,7 @@ module.exports = (login) =>
 
 もちろん、テストもお忘れなく。
 
-_(../test/loadTeams.js)_
+_(test/loadTeams.js)_
 ```js
 const { test } = require('tap')
 const loadTeams = require('../lib/loadTeams.js')
