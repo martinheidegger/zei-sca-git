@@ -14,7 +14,7 @@ For example: if you are logged-out of Github _(or you are not a member of
 NodeSchool)_ and go to the [NodeSchool page](https://github.com/nodeschool)
 : it will not show the "Teams" tab.
 
-![https://i.gyazo.com/e4defee231df714b0cc4d8b12f1f51f7.png]
+![Missing Teams tab, highlighted](https://i.gyazo.com/e4defee231df714b0cc4d8b12f1f51f7.png)
 
 For making the community clearer and giving recognition to the members in the
 team we want to make the public teams visible to everyone.

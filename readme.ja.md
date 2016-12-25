@@ -12,7 +12,7 @@
 例えば、ログインしていない場合、あるいは NodeSchool のメンバーではない場合、
 [NodeSchool のページ](https://github.com/nodeschool)にはチームのタブがありません。
 
-![https://i.gyazo.com/e4defee231df714b0cc4d8b12f1f51f7.png]
+![チームタブ、見えない状態](https://i.gyazo.com/e4defee231df714b0cc4d8b12f1f51f7.png)
 
 そのタブの内容を誰にでも見れるようにしてみましょう。
 
